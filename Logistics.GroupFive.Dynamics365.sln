@@ -5,6 +5,10 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistics.GroupFive.Dynamics365", "Logistics.GroupFive.Dynamics365\Logistics.GroupFive.Dynamics365.csproj", "{26185FB9-8E63-40BD-81F9-384F1A8C8304}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistics.GroupFive.Customizations", "Logistics.GroupFive.Customizations\Logistics.GroupFive.Customizations.csproj", "{EA98AABD-4C2D-4D57-A299-E8828F14B952}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistics.GroupFive.Plugins", "Logistics.GroupFive.Plugins\Logistics.GroupFive.Plugins.csproj", "{6BD2EAE7-2BE0-4E7C-AAE9-D205D0EA0B37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{26185FB9-8E63-40BD-81F9-384F1A8C8304}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26185FB9-8E63-40BD-81F9-384F1A8C8304}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26185FB9-8E63-40BD-81F9-384F1A8C8304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA98AABD-4C2D-4D57-A299-E8828F14B952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA98AABD-4C2D-4D57-A299-E8828F14B952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA98AABD-4C2D-4D57-A299-E8828F14B952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA98AABD-4C2D-4D57-A299-E8828F14B952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD2EAE7-2BE0-4E7C-AAE9-D205D0EA0B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD2EAE7-2BE0-4E7C-AAE9-D205D0EA0B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD2EAE7-2BE0-4E7C-AAE9-D205D0EA0B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD2EAE7-2BE0-4E7C-AAE9-D205D0EA0B37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
