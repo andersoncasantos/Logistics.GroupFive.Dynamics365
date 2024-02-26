@@ -5,13 +5,13 @@ if (typeof (LogisticsOne.Util) === "undefined") LogisticsOne.Util = {};
 
 LogisticsOne.Util = {
     Alert: function (title, description) {
-        const configuracaoTexto = {
+        const configurationText = {
             confirmButtonLabel: "Ok",
             title: title,
             text: description
         };
 
-        const configuracaoOpcoes = {
+        const configurationOptions = {
             height: 120,
             widht: 200
         };
