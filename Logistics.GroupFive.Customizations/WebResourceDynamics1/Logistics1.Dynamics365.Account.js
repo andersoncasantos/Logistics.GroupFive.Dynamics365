@@ -30,4 +30,8 @@ LogisticsOne.Account = {
 			formContext.getControl("alf_cnpj").setVisible(false);
 		}
 	},
+
+	OnLoadVisibilityCnpjCpf: function (context) {
+		LogisticsOne.Account.OnChangeVisibilityCnpjCpf(context);
+	},
 }

@@ -5,4 +5,5 @@ if (typeof (LogisticsOne.Contact) === "undefined") LogisticsOne.Contact = {};
 
 LogisticsOne.Contact = {
 
+
 }
