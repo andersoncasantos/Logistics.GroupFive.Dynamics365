@@ -49,13 +49,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="WebResourceDynamics2\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="WebResourceDynamics1\Logistics1.Dynamics365.Account.js" />
     <Content Include="WebResourceDynamics1\Logistics1.Dynamics365.Contact.js" />
     <Content Include="WebResourceDynamics1\Logistics1.Dynamics365.Util.js" />
+    <Content Include="WebResourceDynamics2\Logistics1.Dynamics365.Opportunity.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
