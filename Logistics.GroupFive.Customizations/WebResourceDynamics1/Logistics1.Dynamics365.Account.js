@@ -17,7 +17,7 @@ LogisticsOne.Account = {
 		let formContext = context.getFormContext();
 		let tipoid = formContext.getAttribute("alf_tipo").getValue();
 
-		if (tipoid === LogisticsOne.Account.Enumerador.Tipo.PessoaJuridica) {
+		if (tipoid === LogisticsOne.Account.Enumerador.Tipo.PessoaJuridica || tipoid === null) {
 			formContext.getControl("alf_cnpj").setVisible(true);
 			formContext.getControl("alf_cpf").setVisible(false);
 		}

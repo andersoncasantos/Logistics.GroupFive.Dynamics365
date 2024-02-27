@@ -19,9 +19,9 @@ namespace Logistics.GroupFive.Plugins.Managers
         }
         public void ValidateDuplicityCPF(Entity contact)
         {
-            if (contact.Contains("alf_cpf"))
+            if (contact.Contains("alf_cpfcontato"))
             {
-                string cpf = contact["alf_cpf"].ToString();
+                string cpf = contact["alf_cpfcontato"].ToString();
                 var contacts = RepositoryContact.SearchAccountByCPF(cpf, Service);
 
                 if (contacts.Entities.Count() > 0)

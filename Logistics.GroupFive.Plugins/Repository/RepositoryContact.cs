@@ -14,7 +14,7 @@ namespace Logistics.GroupFive.Plugins.Repository
         {
             QueryExpression query = new QueryExpression("contact");
             query.ColumnSet.AddColumns("contactid", "fullname");
-            query.Criteria.AddCondition("alf_cpf", ConditionOperator.Equal, cpf);
+            query.Criteria.AddCondition("alf_cpfcontato", ConditionOperator.Equal, cpf);
 
 
             EntityCollection contasCollection = service.RetrieveMultiple(query);
