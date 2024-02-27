@@ -17,7 +17,7 @@ LogisticsOne.Contact = {
 		let formContext = context.getFormContext();
 		let tipoid = formContext.getAttribute("alf_tipocontato").getValue();
 
-		if(tipoid === LogisticsOne.Contact.Enumerador.Tipo.PessoaFisica) {
+		if (tipoid === LogisticsOne.Contact.Enumerador.Tipo.PessoaFisica || tipoid === null) {
 			formContext.getControl("alf_cpfcontato").setVisible(true);
 			formContext.getControl("alf_cnpjcontato").setVisible(false);
 		}
