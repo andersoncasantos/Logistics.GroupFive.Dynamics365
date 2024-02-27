@@ -1,0 +1,57 @@
+﻿using Logistics.GroupFive.Plugins.Managers;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Tooling.Connector;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Logistics.GroupFive.Plugins.Plugins
+{
+    public class ProductManager : IPlugin
+    {
+        public void Execute(IServiceProvider serviceProvider)
+        {
+            IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+            IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+
+            IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
+
+            ITracingService trace = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+
+
+            Entity Product = (Entity)context.InputParameters["Target"];
+
+            ManagerProduct managerContact = new ManagerProduct(service);
+
+            if (context.MessageName == "Create")
+            {
+                ManagerProduct.CreateProductSecound(Product);
+            }
+        }
+        public static IOrganizationService Service { get; set; }
+
+        public static IOrganizationService GetServiceAmbiente2()
+        {
+
+            if (Service == null)
+            {
+                var user = "alfapeople@logisticsgrupo5.onmicrosoft.com";
+                var senha = "grupo5@&2402";
+                var url = "https://orgee1bf3f4.crm2.dynamics.com";
+
+
+                CrmServiceClient crmServiceClient = new CrmServiceClient(
+                    "AuthType = Office365;" +
+                    $"Username={user};" +
+                    $"Password={senha};" +
+                    $"Url={url};"
+                    );
+
+                Service = crmServiceClient.OrganizationWebProxyClient;
+            }
+            return Service;
+        }
+    }
+}
