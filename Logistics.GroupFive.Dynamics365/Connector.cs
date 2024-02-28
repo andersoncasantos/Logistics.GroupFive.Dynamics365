@@ -34,5 +34,27 @@ namespace Logistics.GroupFive.Dynamics365
             }
             return Service;
         }
+
+        public static IOrganizationService GetServiceAmbiente2()
+        {
+
+            if (Service == null)
+            {
+                var user = "alfapeople@logisticsgrupo5.onmicrosoft.com";
+                var senha = "grupo5@&2402";
+                var url = "https://org99afaf47.crm2.dynamics.com";
+
+
+                CrmServiceClient crmServiceClient = new CrmServiceClient(
+                    "AuthType = Office365;" +
+                    $"Username={user};" +
+                    $"Password={senha};" +
+                    $"Url={url};"
+                    );
+
+                Service = crmServiceClient.OrganizationWebProxyClient;
+            }
+            return Service;
+        }
     }
 }

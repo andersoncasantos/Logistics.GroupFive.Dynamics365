@@ -29,6 +29,8 @@ namespace Logistics.GroupFive.Plugins.Plugins
             {
                 ManagerProduct.CreateProductSecound(Product);
             }
+
+
         }
         public static IOrganizationService Service { get; set; }
 
@@ -39,7 +41,7 @@ namespace Logistics.GroupFive.Plugins.Plugins
             {
                 var user = "alfapeople@logisticsgrupo5.onmicrosoft.com";
                 var senha = "grupo5@&2402";
-                var url = "https://orgee1bf3f4.crm2.dynamics.com";
+                var url = "https://org99afaf47.crm2.dynamics.com";
 
 
                 CrmServiceClient crmServiceClient = new CrmServiceClient(

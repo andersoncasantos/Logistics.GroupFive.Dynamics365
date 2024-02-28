@@ -20,7 +20,7 @@ namespace Logistics.GroupFive.Plugins.Managers
         public static void CreateProductSecound(Entity product) 
         {
             var nService = ProductManager.GetServiceAmbiente2();
-            Entity products2 = new Entity();
+            Entity products2 = new Entity("product");
 
             products2["name"] = product["name"];
             products2["productnumber"] = product["productnumber"];
