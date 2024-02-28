@@ -19,7 +19,7 @@ namespace Logistics.GroupFive.PluginsDyn2.Plugins
             ITracingService trace = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
 
             Entity product = (Entity)context.InputParameters["Target"];
-            bool productIsIntegration = (bool)product["dyn2_isintegration"];
+            bool productIsIntegration = (bool)product["dyn2_isintegrationTeste"];
 
             if (!productIsIntegration)
             {
