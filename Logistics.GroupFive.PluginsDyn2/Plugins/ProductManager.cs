@@ -7,24 +7,23 @@ using System.Threading.Tasks;
 
 namespace Logistics.GroupFive.PluginsDyn2.Plugins
 {
-    public class ProductManager : IPlugin
-    {
-        public void Execute(IServiceProvider serviceProvider)
+        public class ProductManager : IPlugin
         {
-            IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
-            IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-
-            IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
-
-            ITracingService trace = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-
-            Entity product = (Entity)context.InputParameters["Target"];
-            bool productIsIntegration = (bool)product["dyn2_isintegrationTeste"];
-
-            if (!productIsIntegration)
+            public void Execute(IServiceProvider serviceProvider)
             {
-                throw new InvalidPluginExecutionException("Um produto não pode ser cadastrado diretamente no Dynamics 2");
+                IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+                if (context.MessageName.ToLower() == "create" && context.PrimaryEntityName.ToLower() == "product")
+                {
+                    if (!UserHasPermissionToCreateAccount(context))
+                    {
+                        throw new InvalidPluginExecutionException("Um produto não pode ser cadastrado diretamente no Dynamics 2");
+                    }
+                }
+            }
+
+            private bool UserHasPermissionToCreateAccount(IPluginExecutionContext context)
+            {
+                return false;
             }
         }
-    }
 }
