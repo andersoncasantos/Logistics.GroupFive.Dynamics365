@@ -60,32 +60,38 @@ LogisticsOne.Account = {
 
 		const name = formContext.getAttribute("name").getValue();
 
-		let text = name.toString().toLowerCase().trim();
-		var wordT = "";
-		var phrase = "";
+		if (name) {
+			let text = name.toString().toLowerCase().trim();
+			var wordT = "";
+			var phrase = "";
 
-		var textBroken = text.split(' ');
+			var textBroken = text.split(' ');
 
-		textBroken.forEach(function (value, index) {
+			textBroken.forEach(function (value, index) {
 
-			let firstL = value.split('');
+				let firstL = value.split('');
 
-			firstL.forEach(function (value, index) {
+				firstL.forEach(function (value, index) {
 
-				let letter = value;
-				if (index === 0) {
-					let wordUpper = value.toUpperCase();
-					wordT = wordUpper;
-				} else {
-					wordT = wordT + letter;
-				}
+					let letter = value;
+					if (index === 0) {
+						let wordUpper = value.toUpperCase();
+						wordT = wordUpper;
+					} else {
+						wordT = wordT + letter;
+					}
 
+				});
+				phrase = phrase + wordT + " ";
 			});
-			phrase = phrase + wordT + " ";
-		});
-		//console.log(phrase.trim());
-		formContext.getAttribute("name").setValue(phrase.trim());
+			//console.log(phrase.trim());
+			formContext.getAttribute("name").setValue(phrase.trim());
+		}
+		else {
+			formContext.getAttribute("name").setValue(null);
+		}
 	},
+
 	OnChangeVisibilityCnpjCpf: function (context) {
 		let formContext = context.getFormContext();
 		let tipoid = formContext.getAttribute("alf_tipo").getValue();
