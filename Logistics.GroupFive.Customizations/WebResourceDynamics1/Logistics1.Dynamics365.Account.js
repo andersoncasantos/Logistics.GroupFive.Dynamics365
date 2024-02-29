@@ -108,7 +108,7 @@ LogisticsOne.Account = {
 			cnpj == "99999999999999"
 		) {
 			formContext.getAttribute("alf_cnpj").setValue("");
-			LogisticsOne.Account.DynamicsCustomAlert("CNPJ Inválido ", " Insira um CNPJ válido");
+			LogisticsOne.Util.Alert("CNPJ Invalido ", " Insira um CNPJ valido");
 
 
 			return false
@@ -142,7 +142,7 @@ LogisticsOne.Account = {
 		// Verificar se os dígitos verificadores estão corretos
 		if (parseInt(cnpj.charAt(12)) !== digitoVerificador1 || parseInt(cnpj.charAt(13)) !== digitoVerificador2) {
 			formContext.getAttribute("alf_cnpj").setValue("");
-			LogisticsOne.Account.DynamicsCustomAlert("CNPJ Inválido ", " Insira um CNPJ válido");
+			LogisticsOne.Util.Alert("CNPJ Inválido ", " Insira um CNPJ válido");
 
 			return false;
 		}
@@ -189,25 +189,8 @@ LogisticsOne.Account = {
 			} else {
 
 				formContext.getAttribute("alf_cnpj").setValue(null);
-				EmpresaY.Util.Alerta("Atenção!", "CNPJ que foi inserido é inválido, tente novamente!");
-
-
+				LogisticsOne.Util.Alert("Atenção!", "CNPJ que foi inserido é inválido, tente novamente!");
 			}
 		}
 	},
-
-	DynamicsCustomAlert: function (alertText, alertTitle) {
-		var alertStrings = {
-			confirmButtonLabel: "OK",
-			text: alertText,
-			title: alertTitle
-		};
-
-		var alertOptions = {
-			height: 120,
-			width: 200
-		};
-
-		Xrm.Navigation.openAlertDialog(alertStrings, alertOptions);
-	}
 }
