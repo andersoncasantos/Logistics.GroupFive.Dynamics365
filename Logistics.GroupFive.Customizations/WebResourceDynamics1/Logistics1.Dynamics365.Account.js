@@ -86,70 +86,6 @@ LogisticsOne.Account = {
 		//console.log(phrase.trim());
 		formContext.getAttribute("name").setValue(phrase.trim());
 	},
-
-	ValidateCNPJ: function (context) {
-		debugger;
-		var formContext = context.getFormContext();
-		var cnpjField = "alf_cnpj";
-		var cnpj = formContext.getAttribute("alf_cnpj").getValue();
-
-		if (
-			!cnpj ||
-			cnpj.length != 14 ||
-			cnpj == "00000000000000" ||
-			cnpj == "11111111111111" ||
-			cnpj == "22222222222222" ||
-			cnpj == "33333333333333" ||
-			cnpj == "44444444444444" ||
-			cnpj == "55555555555555" ||
-			cnpj == "66666666666666" ||
-			cnpj == "77777777777777" ||
-			cnpj == "88888888888888" ||
-			cnpj == "99999999999999"
-		) {
-			formContext.getAttribute("alf_cnpj").setValue("");
-			LogisticsOne.Util.Alert("CNPJ Invalido ", " Insira um CNPJ valido");
-
-
-			return false
-		}
-		cnpj = cnpj.replace(/[^\d]+/g, '');
-
-		// Calcular os dígitos verificadores
-
-		var soma = 0;
-		var peso = 2;
-
-		for (var i = 11; i >= 0; i--) {
-			soma += parseInt(cnpj.charAt(i)) * peso;
-			peso = peso === 9 ? 2 : peso + 1;
-		}
-
-		var resto = soma % 11;
-		var digitoVerificador1 = resto < 2 ? 0 : 11 - resto;
-
-		soma = 0;
-		peso = 2;
-
-		for (var i = 12; i >= 0; i--) {
-			soma += parseInt(cnpj.charAt(i)) * peso;
-			peso = peso === 9 ? 2 : peso + 1;
-		}
-
-		resto = soma % 11;
-		var digitoVerificador2 = resto < 2 ? 0 : 11 - resto;
-
-		// Verificar se os dígitos verificadores estão corretos
-		if (parseInt(cnpj.charAt(12)) !== digitoVerificador1 || parseInt(cnpj.charAt(13)) !== digitoVerificador2) {
-			formContext.getAttribute("alf_cnpj").setValue("");
-			LogisticsOne.Util.Alert("CNPJ Inválido ", " Insira um CNPJ válido");
-
-			return false;
-		}
-		cnpj = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
-		formContext.getAttribute(cnpjField).setValue(cnpj);
-		return true;
-	},
 	OnChangeVisibilityCnpjCpf: function (context) {
 		let formContext = context.getFormContext();
 		let tipoid = formContext.getAttribute("alf_tipo").getValue();
@@ -173,23 +109,19 @@ LogisticsOne.Account = {
 	},
 
 	OnChangeCNPJ: function (context) {
-
 		const formContext = context.getFormContext();
 		let cnpj = formContext.getAttribute("alf_cnpj").getValue();
 
 		if (cnpj) {
-
 			let cnpjLimpo = cnpj.replaceAll(".", "").replace("/", "").replace("-", "");
 
 			if (cnpjLimpo.length === 14) {
-
 				let cnpjFormatado = cnpjLimpo.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
 				formContext.getAttribute("alf_cnpj").setValue(cnpjFormatado);
-
-			} else {
-
-				formContext.getAttribute("alf_cnpj").setValue(null);
-				LogisticsOne.Util.Alert("Atenção!", "CNPJ que foi inserido é inválido, tente novamente!");
+			}
+			else {
+				formContext.getAttribute("alf_cnpj").setValue(null)
+				EmpresaOne.Util.Alert("Atencao!", "CNPJ que foi inserido e invalido, digite novamente");
 			}
 		}
 	},
