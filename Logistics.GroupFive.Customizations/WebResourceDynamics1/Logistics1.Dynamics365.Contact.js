@@ -36,6 +36,71 @@ LogisticsOne.Contact = {
 	OnLoadVisibilityCnpjCpf: function (context) {
 		LogisticsOne.Contact.OnChangeVisibilityCnpjCpf(context);
 	},
+    ValidateCPF: function (context) { /
+    var formContext = context.getFormContext();
+    var cpfField = "alf_cpfcontato"; 
+    var cpf = formContext.getAttribute(cpfField).getValue();
+
+    if (!cpf) {
+        LogisticsOne.Contact.DynamicsCustomAlert("CPF inválido", "O campo CPF é obrigatório");
+        return false; // Verificar se o campo está vazio 
+    }
+
+    if (!cpf || cpf.length != 11 || isNaN(cpf)) {
+        LogisticsOne.Contact.DynamicsCustomAlert("CPF inválido", "Por favor, insira um CPF válido");
+        return false; // Começo da lógica de validação
+    }
+
+    // Verificação dos dígitos verificadores
+    var soma = 0;
+    var resto;
+
+    for (var i = 0; i < 9; i++) {
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
+    }
+
+    resto = (soma * 10) % 11;
+
+    if (resto == 10 || resto == 11) {
+        resto = 0;
+    }
+
+    if (resto != parseInt(cpf.charAt(9))) {
+        LogisticsOne.Contact.DynamicsCustomAlert("CPF inválido", "Por favor, insira um CPF válido");
+        return false;
+    }
+
+    soma = 0;
+
+    for (var i = 0; i < 10; i++) {
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
+    }
+
+    resto = (soma * 10) % 11;
+
+    if (resto == 10 || resto == 11) {
+        resto = 0;
+    }
+
+    if (resto != parseInt(cpf.charAt(10))) {
+        LogisticsOne.Contact.DynamicsCustomAlert("CPF inválido", "Por favor, insira um CPF válido");
+        return false;
+    }
+
+    return true;
+}
+
+	// Formatando o CPF:
+	function formatarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, ''); // Removendo todos os caracteres que não sejam dígitos
+
+    // Aplicando a formatação do CPF
+    cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+    cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+    return cpf;
+}
 
 	ValidateCNPJ: function (context) {
 		debugger;
@@ -58,14 +123,14 @@ LogisticsOne.Contact = {
 			cnpj == "99999999999999"
 		) {
 			formContext.getAttribute("alf_cnpjcontato").setValue("");
-			LogisticsOne.Util.DynamicsCustomAlert("Aten��o!", "CNPJ que foi inserido � inv�lido, tente novamente!");
+			LogisticsOne.Util.DynamicsCustomAlert("Atenção!", "CNPJ que foi inserido é inválido, tente novamente!");
 
 
 			return false
 		}
 		cnpj = cnpj.replace(/[^\d]+/g, '');
 
-		// Calcular os d�gitos verificadores
+		// Calcular os dígitos verificadores
 
 		var soma = 0;
 		var peso = 2;
@@ -89,10 +154,10 @@ LogisticsOne.Contact = {
 		resto = soma % 11;
 		var digitoVerificador2 = resto < 2 ? 0 : 11 - resto;
 
-		// Verificar se os d�gitos verificadores est�o corretos
+		// Verificar se os dígitos verificadores estão corretos
 		if (parseInt(cnpj.charAt(12)) !== digitoVerificador1 || parseInt(cnpj.charAt(13)) !== digitoVerificador2) {
 			formContext.getAttribute("alf_cnpjcontato").setValue("");
-			LogisticsOne.Util.DynamicsCustomAlert("Aten��o!", "CNPJ que foi inserido � inv�lido, tente novamente!");
+			LogisticsOne.Util.DynamicsCustomAlert("Atenção!", "CNPJ que foi inserido é inválido, tente novamente!");
 
 			return false;
 		}
@@ -118,7 +183,7 @@ LogisticsOne.Contact = {
 			} else {
 
 				formContext.getAttribute("alf_cnpjcontato").setValue(null);
-				LogisticsOne.Util.DynamicsCustomAlert("Aten��o!", "CNPJ que foi inserido � inv�lido, tente novamente!");
+				LogisticsOne.Util.DynamicsCustomAlert("Atenção!", "CNPJ que foi inserido é inválido, tente novamente!");
 
 
 			}
