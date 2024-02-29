@@ -120,15 +120,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connection.cs" />
     <Compile Include="Managers\ManagerAccount.cs" />
     <Compile Include="Managers\ManagerContact.cs" />
+    <Compile Include="Managers\ManagerOpportunity.cs" />
     <Compile Include="Managers\ManagerProduct.cs" />
     <Compile Include="Plugins\AccountManager.cs" />
     <Compile Include="Plugins\ContactManager.cs" />
+    <Compile Include="Plugins\OpportunityManager.cs" />
     <Compile Include="Plugins\ProductManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RepositoryAccount.cs" />
     <Compile Include="Repository\RepositoryContact.cs" />
+    <Compile Include="Repository\RepositoryOpportunity.cs" />
+    <Compile Include="Repository\RepositoryProduct.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

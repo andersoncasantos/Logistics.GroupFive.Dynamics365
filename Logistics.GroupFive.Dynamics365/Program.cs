@@ -13,7 +13,7 @@ namespace Logistics.GroupFive.Dynamics365
     {
         static void Main(string[] args)
         {
-            testeCreate(Connection.GetServiceAmbiente2());
+            //testeCreate(Connection.GetServiceAmbiente2());
         }
 
         public static void testeCreate(IOrganizationService service) 

@@ -40,8 +40,8 @@ LogisticsOne.Contact = {
 	ValidateCNPJ: function (context) {
 		debugger;
 		var formContext = context.getFormContext();
-		var cnpjField = "alf_cnpj";
-		var cnpj = formContext.getAttribute("alf_cnpj").getValue();
+		var cnpjField = "alf_cnpjcontato";
+		var cnpj = formContext.getAttribute("alf_cnpjcontato").getValue();
 
 		if (
 			!cnpj ||
@@ -57,8 +57,8 @@ LogisticsOne.Contact = {
 			cnpj == "88888888888888" ||
 			cnpj == "99999999999999"
 		) {
-			formContext.getAttribute("alf_cnpj").setValue("");
-			LogisticsOne.Account.DynamicsCustomAlert("CNPJ Inválido ", " Insira um CNPJ válido");
+			formContext.getAttribute("alf_cnpjcontato").setValue("");
+			LogisticsOne.Util.DynamicsCustomAlert("Atenção!", "CNPJ que foi inserido é inválido, tente novamente!");
 
 
 			return false
@@ -91,8 +91,8 @@ LogisticsOne.Contact = {
 
 		// Verificar se os dígitos verificadores estão corretos
 		if (parseInt(cnpj.charAt(12)) !== digitoVerificador1 || parseInt(cnpj.charAt(13)) !== digitoVerificador2) {
-			formContext.getAttribute("alf_cnpj").setValue("");
-			LogisticsOne.Account.DynamicsCustomAlert("CNPJ Inválido ", " Insira um CNPJ válido");
+			formContext.getAttribute("alf_cnpjcontato").setValue("");
+			LogisticsOne.Util.DynamicsCustomAlert("Atenção!", "CNPJ que foi inserido é inválido, tente novamente!");
 
 			return false;
 		}
@@ -100,10 +100,11 @@ LogisticsOne.Contact = {
 		formContext.getAttribute(cnpjField).setValue(cnpj);
 		return true;
 	},
+
 	OnChangeCNPJ: function (context) {
 
 		const formContext = context.getFormContext();
-		let cnpj = formContext.getAttribute("alf_cnpj").getValue();
+		let cnpj = formContext.getAttribute("alf_cnpjcontato").getValue();
 
 		if (cnpj) {
 
@@ -112,12 +113,12 @@ LogisticsOne.Contact = {
 			if (cnpjLimpo.length === 14) {
 
 				let cnpjFormatado = cnpjLimpo.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
-				formContext.getAttribute("alf_cnpj").setValue(cnpjFormatado);
+				formContext.getAttribute("alf_cnpjcontato").setValue(cnpjFormatado);
 
 			} else {
 
-				formContext.getAttribute("alf_cnpj").setValue(null);
-				EmpresaY.Util.Alerta("Atenção!", "CNPJ que foi inserido é inválido, tente novamente!");
+				formContext.getAttribute("alf_cnpjcontato").setValue(null);
+				LogisticsOne.Util.DynamicsCustomAlert("Atenção!", "CNPJ que foi inserido é inválido, tente novamente!");
 
 
 			}
