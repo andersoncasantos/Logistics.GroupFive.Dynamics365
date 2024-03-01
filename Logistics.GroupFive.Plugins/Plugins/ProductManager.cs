@@ -25,9 +25,16 @@ namespace Logistics.GroupFive.Plugins.Plugins
 
             ManagerProduct managerContact = new ManagerProduct(service);
 
-            if (context.MessageName == "Create")
+            try
             {
-                ManagerProduct.CreateProductSecound(Product);
+                if (context.MessageName == "Create")
+                {
+                    ManagerProduct.CreateProductSecound(Product);
+                }
+            }
+            catch (Exception ex) 
+            {
+                throw new InvalidPluginExecutionException("Falha em cadastrar um produto no Dynamics 2: " + ex);
             }
 
 

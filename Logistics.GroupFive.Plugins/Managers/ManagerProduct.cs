@@ -78,20 +78,24 @@ namespace Logistics.GroupFive.Plugins.Managers
         {
             var service = Connection.GetServiceAmbiente2();
             var query = RepositoryProduct.SearchPriceList(id);
-            Entity entity = new Entity("pricelevel");
 
-            var queryUnitGroup = RepositoryProduct.SearchUnitGroupExist(new Guid(query.Entities.First()["uomscheduleid"].ToString()), service);
-
-            if (queryUnitGroup.Entities.Count() == 0)
+            if (query.Entities.Count() > 0)
             {
-                CreateUnitGroup(new Guid(query.Entities.First()["uomscheduleid"].ToString()));
+                Entity entity = new Entity("pricelevel");
+
+                var queryUnitGroup = RepositoryProduct.SearchUnitGroupExist(new Guid(query.Entities.First()["uomscheduleid"].ToString()), service);
+
+                if (queryUnitGroup.Entities.Count() == 0)
+                {
+                    CreateUnitGroup(new Guid(query.Entities.First()["uomscheduleid"].ToString()));
+                }
+
+                entity["uomscheduleid"] = new EntityReference("uomschedule", new Guid(query.Entities.First()["uomscheduleid"].ToString()));//lookup
+                entity["name"] = query.Entities.First()["name"].ToString();
+                entity["quantity"] = Convert.ToDecimal(query.Entities.First()["quantity"]);
+
+                service.Create(entity);
             }
-
-            entity["uomscheduleid"] = new EntityReference("uomschedule", new Guid(query.Entities.First()["uomscheduleid"].ToString()));//lookup
-            entity["name"] = query.Entities.First()["name"].ToString();
-            entity["quantity"] = Convert.ToDecimal(query.Entities.First()["quantity"]);
-
-            service.Create(entity);
         }
 
         private static void CreateMainUnit(Guid id)
@@ -102,7 +106,7 @@ namespace Logistics.GroupFive.Plugins.Managers
 
             var queryTransitionCurrency = RepositoryProduct.SearchTransactionCurrencyExist(new Guid(query.Entities.First()["transactioncurrencyid"].ToString()), service);
 
-            if (queryTransitionCurrency.Entities.Count() == 0) 
+            if (queryTransitionCurrency.Entities.Count() == 0)
             {
                 CreateTransationCurrency(new Guid(query.Entities.First()["transactioncurrencyid"].ToString()));
             }
@@ -110,14 +114,14 @@ namespace Logistics.GroupFive.Plugins.Managers
             entity["name"] = query.Entities.First()["name"].ToString();
             entity["begindate"] = Convert.ToDateTime(query.Entities.First()["begindate"].ToString());
             entity["enddate"] = Convert.ToDateTime(query.Entities.First()["enddate"].ToString());
-            entity["transactioncurrencyid"] = new EntityReference("transactioncurrency", new Guid(query.Entities.First()["transactioncurrencyid"].ToString())); 
+            entity["transactioncurrencyid"] = new EntityReference("transactioncurrency", new Guid(query.Entities.First()["transactioncurrencyid"].ToString()));
             entity["description"] = query.Entities.First()["description"].ToString();
 
 
             service.Create(entity);
         }
 
-        private static void CreateTransationCurrency(Guid id) 
+        private static void CreateTransationCurrency(Guid id)
         {
             var service = Connection.GetServiceAmbiente2();
             var query = RepositoryProduct.SearchTransactionCurrency(id);

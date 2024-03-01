@@ -1,5 +1,6 @@
 ﻿using Logistics.GroupFive.Plugins.Repository;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Tooling.Connector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,24 +10,70 @@ using System.Web.Services.Description;
 
 namespace Logistics.GroupFive.Plugins.Plugins
 {
-    public class OpportunityManager : IPlugin
+    public class OpportunityManager : PluginCore
     {
-        public void Execute(IServiceProvider serviceProvider)
+        public Entity Oportunidade { get; set; }
+        public CrmServiceClient ServiceClient { get; set; }
+
+        public override void ExecutePlugin(IServiceProvider serviceProvider)
         {
-            IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
-            IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+            var service = Connection.GetServiceAmbiente2();
 
-            IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
-
-            ITracingService trace = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-
-
-            Entity Opportunity = (Entity)context.InputParameters["Target"];
+            this.Oportunidade = (Entity)this.Context.InputParameters["Target"];
+            this.Oportunidade.Attributes.Add("grp_idprincipal", FormatIdOpportunity(ServiceClient));
             
-            if (context.MessageName == "Create")
+            this.TracingService.Trace("Serviço recuperado com sucesso");
+
+            service.Create(SetNewOportunidadeAttributes());
+            this.TracingService.Trace("Oportunidade nova criada");
+        }
+
+
+        //public void Execute(IServiceProvider serviceProvider)
+        //{
+        //    IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+        //    IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+
+        //    IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
+
+        //    ITracingService trace = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+
+
+        //    Entity Opportunity = (Entity)context.InputParameters["Target"];
+
+        //    if (context.MessageName == "Create")
+        //    {
+        //        Opportunity.Attributes.Add("NewIdGroup", FormatIdOpportunity(service));
+        //    }
+        //}
+
+        private Entity SetNewOportunidadeAttributes()
+        {
+            Entity oportunidadeToCreate = new Entity("opportunity");
+
+            string[] oportunidadeAtributos = new string[]
             {
-                Opportunity.Attributes.Add("NewIdGroup", FormatIdOpportunity(service));
+                "name",
+                "purchasetimeframe",
+                "description",
+                "budgetamount_base",
+                "purchaseprocess",
+                "currentsituation",
+                "customerneed",
+                "proposedsolution"
+            };
+            foreach (string att in oportunidadeAtributos)
+            {
+                if (this.Oportunidade.Attributes.TryGetValue(att, out object value))
+                {
+                    oportunidadeToCreate[att] = value;
+                }
             }
+
+            oportunidadeToCreate["dyn2_idprincipal"] = this.Oportunidade["grp_idprincipal"];
+
+
+            return oportunidadeToCreate;
         }
 
         public string FormatIdOpportunity(IOrganizationService service)
