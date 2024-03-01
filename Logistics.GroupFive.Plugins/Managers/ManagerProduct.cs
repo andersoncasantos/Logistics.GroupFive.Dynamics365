@@ -19,7 +19,7 @@ namespace Logistics.GroupFive.Plugins.Managers
             Service = service;
         }
 
-        public static void CreateProductSecound(Entity product)
+        public static void CreateSecoundProduct(Entity product)
         {
             var nService = Connection.GetServiceAmbiente2();
 

@@ -29,7 +29,7 @@ namespace Logistics.GroupFive.Plugins.Plugins
             {
                 if (context.MessageName == "Create")
                 {
-                    ManagerProduct.CreateProductSecound(Product);
+                    ManagerProduct.CreateSecoundProduct(Product);
                 }
             }
             catch (Exception ex) 

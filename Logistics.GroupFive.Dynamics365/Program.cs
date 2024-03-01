@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace Logistics.GroupFive.Dynamics365
     {
         static void Main(string[] args)
         {
+            testeConsulta(Connection.GetService());
             //testeCreate(Connection.GetServiceAmbiente2());
             //createNew();
 
@@ -38,22 +40,15 @@ namespace Logistics.GroupFive.Dynamics365
 
         }
 
-        public static void testeCreate(IOrganizationService service) 
+        public static void testeConsulta(IOrganizationService service) 
         {
+            QueryExpression query = new QueryExpression("product");
+            query.ColumnSet.AddColumns("productid", "name", "defaultuomscheduleid", "defaultuomid", "pricelevelid");
+            query.Criteria.AddCondition("productid", ConditionOperator.Equal, "79197fd0-f71f-eb11-a813-000d3a33f3b4");
 
-            //Entity products2 = new Entity("product");
-
-            //products2["name"] = "Criacao Teste";
-            //products2["productnumber"] = "teste";
-            //products2["defaultuomscheduleid"] = new EntityReference("uomschedule", new Guid("79197fd0-f71f-eb11-a813-000d3a33f3b4")); 
-            //products2["defaultuomid"] = new EntityReference("pricelevel", new Guid("65029c08-f01f-eb11-a812-000d3a33e825")); 
-            //products2["quantitydecimal"] = 2;
-          
-
-            //service.Create(products2);
-
-
-
+            EntityCollection contasCollection = service.RetrieveMultiple(query);
+            var teste = contasCollection;
+            //return contasCollection;
         }
 
         public static void createNew() 

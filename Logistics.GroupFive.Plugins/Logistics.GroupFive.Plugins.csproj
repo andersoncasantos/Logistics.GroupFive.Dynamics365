@@ -128,7 +128,6 @@
     <Compile Include="Managers\ManagerContact.cs" />
     <Compile Include="Managers\ManagerOpportunity.cs" />
     <Compile Include="Managers\ManagerProduct.cs" />
-    <Compile Include="PluginCore.cs" />
     <Compile Include="Plugins\AccountManager.cs" />
     <Compile Include="Plugins\ContactManager.cs" />
     <Compile Include="Plugins\OpportunityManager.cs" />
